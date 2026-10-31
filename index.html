@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -47,6 +46,7 @@ button{
 .main-btn{width:100%;margin-top:12px;background:var(--green);color:white}
 .main-btn:hover{background:#086238}
 .secondary{background:#eeeede;color:var(--green)}
+.danger{background:#f6dcdc;color:#b12d2d;padding:8px 12px;font-size:12px}
 .hero{
  background:var(--green);color:white;border-radius:16px;
  padding:25px;text-align:center;margin-bottom:18px
@@ -166,7 +166,7 @@ nav button{background:#e8e7d8;color:var(--green)}
   <div class="table-wrap">
    <table>
     <thead>
-     <tr><th>Öğrenci</th><th>Kod</th><th>Telefon</th><th>Bakiye</th></tr>
+     <tr><th>Öğrenci</th><th>Kod</th><th>Telefon</th><th>Bakiye</th><th></th></tr>
     </thead>
     <tbody id="studentList"></tbody>
    </table>
@@ -349,6 +349,26 @@ async function addStudent(){
  await refresh();
 }
 
+// OGRENCI SIL
+
+async function deleteStudent(id,name){
+ if(!currentUser)return;
+
+ if(!confirm(name+" adlı öğrenci silinecek. Satış ve harcama geçmişi de silinebilir. Emin misin?")){
+  return;
+ }
+
+ const {error}=await db.from("students").delete().eq("id",id);
+
+ if(error){
+  message("studentMessage","Öğrenci silinemedi: "+error.message,"error");
+  return;
+ }
+
+ message("studentMessage",name+" silindi.");
+ await refresh();
+}
+
 // SATIS EKLE
 
 async function addSale(){
@@ -458,8 +478,11 @@ async function refresh(){
    <td><b>${safe(s.code)}</b></td>
    <td>${safe(s.phone||"-")}</td>
    <td><b>${money(s.balance)}</b></td>
+   <td><button class="danger"
+     data-id="${safe(s.id)}" data-name="${safe(s.name)}"
+     onclick="deleteStudent(this.dataset.id,this.dataset.name)">Sil</button></td>
   </tr>`
- ).join("") || "<tr><td colspan='4'>Henüz öğrenci yok.</td></tr>";
+ ).join("") || "<tr><td colspan='5'>Henüz öğrenci yok.</td></tr>";
 
  const studentMap=Object.fromEntries(
   students.map(s=>[s.id,s.code])
