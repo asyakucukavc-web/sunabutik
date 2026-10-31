@@ -6,196 +6,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SUNA BUTİK | Yönetim Paneli</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root {
-  --cream:#F7F6E9;
-  --green:#004923;
-  --gold:#DDBB65;
-  --white:#FFFFFF;
-  --text:#24372B;
+:root{
+ --cream:#F7F6E9;
+ --green:#004923;
+ --gold:#DDBB65;
+ --text:#24372B;
+ --white:#fff;
 }
 *{box-sizing:border-box}
-
 body{
- margin:0;
- background:var(--cream);
- font-family:Arial,sans-serif;
- color:var(--text);
+ margin:0;background:var(--cream);
+ font-family:Arial,sans-serif;color:var(--text)
 }
-
 header{
- background:var(--cream);
- text-align:center;
- padding:25px 15px;
- border-bottom:1px solid #e7e4d3;
+ text-align:center;padding:25px 15px;
+ border-bottom:1px solid #e7e4d3
 }
-
-.logo{
- width:min(100%,650px);
- max-height:175px;
- object-fit:contain;
-}
-
-.brand{
- color:var(--green);
- font-size:14px;
- letter-spacing:6px;
- margin-top:8px;
-}
-
-main{
- max-width:900px;
- margin:auto;
- padding:20px 14px;
-}
-
+.logo{width:min(100%,650px);max-height:155px;object-fit:contain}
+.brand{color:var(--green);letter-spacing:6px;margin-top:8px}
+main{max-width:950px;margin:auto;padding:18px 13px}
 .panel{
- background:white;
- padding:23px;
- border-radius:15px;
- margin-bottom:18px;
- border:1px solid #eeecdf;
- box-shadow:0 5px 20px #00492308;
+ background:white;padding:22px;border-radius:15px;
+ margin-bottom:17px;border:1px solid #eeecdf;
+ box-shadow:0 5px 20px #00492308
 }
-
-h2{
- color:var(--green);
- font-size:19px;
- margin-top:0;
-}
-
-label{
- display:block;
- font-size:13px;
- font-weight:bold;
- margin-top:14px;
-}
-
+h2{color:var(--green);font-size:19px;margin-top:0}
+label{display:block;font-size:13px;font-weight:bold;margin-top:13px}
 input{
- width:100%;
- padding:14px;
- margin:7px 0;
- border:1px solid #deded0;
- border-radius:8px;
- font-size:15px;
- background:#fffefa;
+ width:100%;padding:14px;margin:7px 0;
+ border:1px solid #deded0;border-radius:8px;
+ font-size:15px;background:#fffefa
 }
-
 button{
- border:0;
- border-radius:9px;
- padding:13px 18px;
- font-weight:bold;
- cursor:pointer;
+ border:0;border-radius:9px;padding:13px 17px;
+ font-weight:bold;cursor:pointer
 }
-
-.main-btn{
- width:100%;
- margin-top:12px;
- background:var(--green);
- color:white;
-}
-
+.main-btn{width:100%;margin-top:12px;background:var(--green);color:white}
 .main-btn:hover{background:#086238}
-
-.danger-btn{
- background:#f8e6e3;
- color:#963c30;
-}
-
+.secondary{background:#eeeede;color:var(--green)}
 .hero{
- background:var(--green);
- color:white;
- border-radius:16px;
- padding:25px;
- text-align:center;
- margin-bottom:18px;
+ background:var(--green);color:white;border-radius:16px;
+ padding:25px;text-align:center;margin-bottom:18px
 }
-
-.hero small{color:#e7d69f}
-
-.hero strong{
- display:block;
- font-size:34px;
- margin:12px;
-}
-
-.stat{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
-}
-
-.stat div{
- background:var(--cream);
- padding:16px;
- border-radius:10px;
- font-size:13px;
-}
-
-.stat strong{
- display:block;
- font-size:21px;
- color:var(--green);
- margin-top:8px;
-}
-
-.code{
- color:var(--green);
- font-weight:bold;
-}
-
+.hero small{color:#e7d69f;letter-spacing:2px}
+.hero strong{display:block;font-size:34px;margin:12px}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat div{background:var(--cream);padding:16px;border-radius:10px;font-size:13px}
+.stat strong{display:block;font-size:21px;color:var(--green);margin-top:8px}
 .table-wrap{overflow-x:auto}
-
-table{
- width:100%;
- border-collapse:collapse;
- font-size:13px;
- min-width:400px;
-}
-
-td,th{
- text-align:left;
- padding:12px 9px;
- border-bottom:1px solid #eee;
-}
-
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:450px}
+td,th{text-align:left;padding:12px 9px;border-bottom:1px solid #eee}
 th{color:var(--green)}
-
+.hidden{display:none!important}
 .badge{
- display:inline-block;
- background:#f2e8ca;
- color:#74591d;
- padding:5px 10px;
- border-radius:20px;
- font-size:11px;
+ display:inline-block;background:#f2e8ca;color:#74591d;
+ padding:5px 10px;border-radius:20px;font-size:11px
 }
-
 .history-item{
- padding:12px 0;
- border-bottom:1px solid #eee;
- display:flex;
- justify-content:space-between;
- gap:10px;
+ padding:12px 0;border-bottom:1px solid #eee;
+ display:flex;justify-content:space-between;gap:10px
 }
-
-.empty{
- color:#888;
- font-size:13px;
- padding:10px 0;
-}
-
-footer{
- text-align:center;
- padding:25px;
- color:var(--green);
- font-size:12px;
- letter-spacing:3px;
-}
-
+.message{font-size:13px;margin-top:12px;white-space:pre-wrap}
+.success{color:#08703c}
+.error{color:#b12d2d}
+footer{text-align:center;padding:25px;color:var(--green);font-size:12px;letter-spacing:3px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:17px}
+nav button{background:#e8e7d8;color:var(--green)}
 @media(max-width:500px){
- .panel{padding:17px}
- .hero strong{font-size:30px}
+ .panel{padding:16px}.hero strong{font-size:29px}
 }
 </style>
 </head>
@@ -203,409 +84,421 @@ footer{
 <body>
 
 <header>
- <img class="logo"
- src="suna-logo.png"
- alt="SUNA BUTİK Logo"
+ <img class="logo" src="suna-logo.png" alt="SUNA BUTİK"
  onerror="this.style.display='none'">
-
  <div class="brand">S U N A &nbsp; B U T İ K</div>
 </header>
 
 <main>
 
-<!-- GENEL ÖZET -->
+<!-- GIRIS -->
+<section id="loginPanel" class="panel">
+ <h2>🌿 Yönetici Girişi</h2>
+ <p>SUNA BUTİK yönetim sistemine hoş geldin.</p>
 
-<div class="hero">
- <small>SUNA BUTİK YÖNETİM PANELİ</small>
- <p>Toplam Öğrenci Bakiyesi</p>
- <strong id="totalBalance">₺0,00</strong>
- <span class="badge">Öğrenci Kazanç Sistemi • %5</span>
-</div>
+ <label>E-posta adresi</label>
+ <input id="email" type="email" placeholder="E-posta adresin">
 
-<div class="panel">
- <h2>📊 Genel Durum</h2>
+ <label>Şifre</label>
+ <input id="password" type="password" placeholder="Şifren">
 
- <div class="stat">
-  <div>
-   Toplam Öğrenci
-   <strong id="studentCount">0</strong>
-  </div>
+ <button class="main-btn" onclick="login()">Giriş Yap</button>
+ <div id="loginMessage" class="message"></div>
+</section>
 
-  <div>
-   Toplam Satış
-   <strong id="totalSales">₺0,00</strong>
-  </div>
+<!-- YONETIM -->
+<section id="dashboard" class="hidden">
 
-  <div>
-   Dağıtılan Kazanç
-   <strong id="totalRewards">₺0,00</strong>
-  </div>
+ <nav>
+  <button onclick="refresh()">↻ Yenile</button>
+  <button onclick="logout()">Çıkış Yap</button>
+ </nav>
 
-  <div>
-   Toplam Harcanan Bakiye
-   <strong id="totalSpent">₺0,00</strong>
+ <div class="hero">
+  <small>SUNA BUTİK YÖNETİM PANELİ</small>
+  <p>Toplam Öğrenci Bakiyesi</p>
+  <strong id="totalBalance">₺0,00</strong>
+  <span class="badge">%5 ÖĞRENCİ KAZANÇ SİSTEMİ</span>
+ </div>
+
+ <div class="panel">
+  <h2>📊 Genel Durum</h2>
+  <div class="stat">
+   <div>Öğrenci Sayısı<strong id="studentCount">0</strong></div>
+   <div>Toplam Satış<strong id="totalSales">₺0,00</strong></div>
+   <div>Dağıtılan Kazanç<strong id="totalRewards">₺0,00</strong></div>
+   <div>Harcanan Bakiye<strong id="totalSpent">₺0,00</strong></div>
   </div>
  </div>
-</div>
 
-<!-- ÖĞRENCİ EKLE -->
-
-<div class="panel">
- <h2>➕ Yeni Öğrenci Ekle</h2>
-
- <label>Öğrenci Adı Soyadı</label>
- <input id="newName" placeholder="Ad Soyad">
-
- <label>Telefon Numarası (İsteğe bağlı)</label>
- <input id="newPhone" placeholder="05XX XXX XX XX">
-
- <button class="main-btn" onclick="addStudent()">
- Öğrenci Oluştur
- </button>
-
- <div id="created"></div>
-</div>
-
-<!-- SATIŞ EKLE -->
-
-<div class="panel">
- <h2>🛍️ Yeni Alışveriş Kaydet</h2>
-
- <label>Öğrenci Kodu</label>
- <input id="saleCode" placeholder="Örn: AYSE10">
-
- <label>Alışveriş Tutarı (TL)</label>
- <input id="saleAmount" type="number" min="0.01" step="0.01" placeholder="Örn: 1000">
-
- <button class="main-btn" onclick="addSale()">
- Satışı Kaydet ve %5 Kazandır
- </button>
-
- <p style="font-size:12px;color:#888">
- Her alışverişin %5'i otomatik olarak öğrencinin bakiyesine eklenir.
- </p>
-</div>
-
-<!-- BAKİYE HARCAMA -->
-
-<div class="panel">
- <h2>💳 Öğrenci Bakiyesinden Harcama</h2>
-
- <label>Öğrenci Kodu</label>
- <input id="spendCode" placeholder="Örn: AYSE10">
-
- <label>Harcanan Tutar (TL)</label>
- <input id="spendAmount" type="number" min="0.01" step="0.01" placeholder="Örn: 150">
-
- <button class="main-btn" onclick="spendBalance()">
- Harcamayı Kaydet ve Bakiyeden Düş
- </button>
-</div>
-
-<!-- ÖĞRENCİLER -->
-
-<div class="panel">
- <h2>👥 Öğrenci Listesi ve Bakiyeler</h2>
-
- <div class="table-wrap">
-  <table>
-   <thead>
-    <tr>
-     <th>Öğrenci</th>
-     <th>Kod</th>
-     <th>Telefon</th>
-     <th>Bakiye</th>
-    </tr>
-   </thead>
-   <tbody id="studentList"></tbody>
-  </table>
+ <div class="panel">
+  <h2>➕ Yeni Öğrenci Ekle</h2>
+  <label>Ad Soyad</label>
+  <input id="newName" placeholder="Öğrenci adı soyadı">
+  <label>Telefon (isteğe bağlı)</label>
+  <input id="newPhone" placeholder="05XX XXX XX XX">
+  <button class="main-btn" onclick="addStudent()">Öğrenci Oluştur</button>
+  <div id="studentMessage" class="message"></div>
  </div>
-</div>
 
-<!-- SATIŞ GEÇMİŞİ -->
-
-<div class="panel">
- <h2>🧾 Satış Geçmişi</h2>
-
- <div class="table-wrap">
-  <table>
-   <thead>
-    <tr>
-     <th>Tarih</th>
-     <th>Öğrenci Kodu</th>
-     <th>Satış</th>
-     <th>%5 Kazanç</th>
-    </tr>
-   </thead>
-   <tbody id="salesList"></tbody>
-  </table>
+ <div class="panel">
+  <h2>🛍️ Satış Kaydet</h2>
+  <label>Öğrenci Referans Kodu</label>
+  <input id="saleCode" placeholder="Örn: AYSE10">
+  <label>Alışveriş Tutarı (TL)</label>
+  <input id="saleAmount" type="number" min="0.01" step="0.01" placeholder="1000">
+  <button class="main-btn" onclick="addSale()">Satışı Kaydet ve %5 Kazandır</button>
+  <div id="saleMessage" class="message"></div>
  </div>
-</div>
 
-<!-- HARCAMA GEÇMİŞİ -->
+ <div class="panel">
+  <h2>💳 Öğrenci Bakiyesinden Harcama</h2>
+  <label>Öğrenci Kodu</label>
+  <input id="spendCode" placeholder="Örn: AYSE10">
+  <label>Harcanan Tutar (TL)</label>
+  <input id="spendAmount" type="number" min="0.01" step="0.01" placeholder="150">
+  <button class="main-btn" onclick="spendBalance()">Harcamayı Kaydet</button>
+  <div id="spendMessage" class="message"></div>
+ </div>
 
-<div class="panel">
- <h2>💰 Harcama Geçmişi</h2>
- <div id="spendList"></div>
-</div>
+ <div class="panel">
+  <h2>👥 Öğrenci Listesi ve Bakiyeler</h2>
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr><th>Öğrenci</th><th>Kod</th><th>Telefon</th><th>Bakiye</th></tr>
+    </thead>
+    <tbody id="studentList"></tbody>
+   </table>
+  </div>
+ </div>
 
+ <div class="panel">
+  <h2>🧾 Satış Geçmişi</h2>
+  <div class="table-wrap">
+   <table>
+    <thead>
+     <tr><th>Tarih</th><th>Kod</th><th>Satış</th><th>Kazanç</th></tr>
+    </thead>
+    <tbody id="salesList"></tbody>
+   </table>
+  </div>
+ </div>
+
+ <div class="panel">
+  <h2>💰 Harcama Geçmişi</h2>
+  <div id="expenseList"></div>
+ </div>
+
+</section>
 </main>
 
-<footer>
- SUNA BUTİK
-</footer>
+<footer>SUNA BUTİK</footer>
 
 <script>
+// SUPABASE BAGLANTISI
+
+const SUPABASE_URL =
+ "https://npgiwuvrxlolaiiiwgtk.supabase.co";
+
+const SUPABASE_KEY =
+ "BURAYA_PUBLISHABLE_KEY_YAPISTIR";
+
+const db = window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY
+);
 
 const $ = id => document.getElementById(id);
 
-let students = JSON.parse(
- localStorage.getItem("suna_students") || "{}"
-);
-
-let sales = JSON.parse(
- localStorage.getItem("suna_sales") || "[]"
-);
-
-let expenses = JSON.parse(
- localStorage.getItem("suna_expenses") || "[]"
-);
-
-function save(){
- localStorage.setItem(
-  "suna_students",JSON.stringify(students)
- );
-
- localStorage.setItem(
-  "suna_sales",JSON.stringify(sales)
- );
-
- localStorage.setItem(
-  "suna_expenses",JSON.stringify(expenses)
- );
-
- dashboard();
-}
+let currentUser = null;
 
 function money(value){
- return Number(value).toLocaleString("tr-TR",{
-  style:"currency",
-  currency:"TRY"
+ return Number(value || 0).toLocaleString("tr-TR",{
+  style:"currency",currency:"TRY"
  });
 }
 
 function safe(value){
- return String(value).replace(/[&<>"']/g,c=>({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
+ return String(value ?? "").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",
+  '"':"&quot;","'":"&#39;"
  })[c]);
 }
 
-// ÖĞRENCİ KODU OLUŞTUR
+function message(id,text,type="success"){
+ const el=$(id);
+ el.textContent=text;
+ el.className="message "+type;
+}
 
-function makeCode(name){
+function showDashboard(show){
+ $("loginPanel").classList.toggle("hidden",show);
+ $("dashboard").classList.toggle("hidden",!show);
+}
 
- let base=name
- .normalize("NFD")
- .replace(/[\u0300-\u036f]/g,"")
- .replace(/[^a-zA-Z]/g,"")
- .toUpperCase()
- .slice(0,8) || "SUNACLUB";
+// YONETICI KONTROLU
+
+async function verifyAdmin(){
+ const {data:{user},error}=await db.auth.getUser();
+
+ if(error || !user){
+  currentUser=null;
+  showDashboard(false);
+  return false;
+ }
+
+ const {data:profile,error:profileError}=await db
+  .from("profiles")
+  .select("role")
+  .eq("id",user.id)
+  .maybeSingle();
+
+ if(profileError || !profile || profile.role!=="admin"){
+  await db.auth.signOut();
+  currentUser=null;
+  showDashboard(false);
+  message("loginMessage","Yönetici yetkisi bulunamadı.","error");
+  return false;
+ }
+
+ currentUser=user;
+ showDashboard(true);
+ await refresh();
+ return true;
+}
+
+async function login(){
+ const email=$("email").value.trim();
+ const password=$("password").value;
+
+ if(!email || !password){
+  message("loginMessage","E-posta ve şifre gir.","error");
+  return;
+ }
+
+ const {error}=await db.auth.signInWithPassword({
+  email,password
+ });
+
+ if(error){
+  message("loginMessage","Giriş başarısız: "+error.message,"error");
+  return;
+ }
+
+ await verifyAdmin();
+}
+
+async function logout(){
+ await db.auth.signOut();
+ currentUser=null;
+ showDashboard(false);
+}
+
+// OGRENCI EKLE
+
+function makeCode(name,existing){
+ let base=name.normalize("NFD")
+  .replace(/[\u0300-\u036f]/g,"")
+  .replace(/[^a-zA-Z]/g,"")
+  .toUpperCase().slice(0,8)||"SUNA";
 
  let code=base+"10";
  let i=1;
 
- while(students[code]){
+ while(existing.includes(code)){
   code=base+(++i)+"10";
  }
-
  return code;
 }
 
-// ÖĞRENCİ EKLE
+async function addStudent(){
+ if(!currentUser)return;
 
-function addStudent(){
-
- let name=$("newName").value.trim();
- let phone=$("newPhone").value.trim();
+ const name=$("newName").value.trim();
+ const phone=$("newPhone").value.trim();
 
  if(!name){
-  alert("Öğrenci adı gir.");
+  message("studentMessage","Öğrenci adı gerekli.","error");
   return;
  }
 
- let code=makeCode(name);
+ const {data:existing,error:readError}=await db
+  .from("students").select("code");
 
- students[code]={
-  name:name,
-  phone:phone,
-  balance:0
- };
+ if(readError){
+  message("studentMessage",readError.message,"error");
+  return;
+ }
 
- save();
+ const code=makeCode(name,existing.map(s=>s.code));
 
- $("created").innerHTML=
- "<p style='color:#086238'>✓ Öğrenci oluşturuldu: <b>"+
- safe(code)+"</b></p>";
+ const {error}=await db.from("students").insert({
+  name,phone,code
+ });
+
+ if(error){
+  message("studentMessage","Öğrenci eklenemedi: "+error.message,"error");
+  return;
+ }
 
  $("newName").value="";
  $("newPhone").value="";
+
+ message("studentMessage","Öğrenci oluşturuldu. Kod: "+code);
+ await refresh();
 }
 
-// SATIŞ EKLE - %5 KAZANÇ
+// SATIS EKLE
 
-function addSale(){
+async function addSale(){
+ if(!currentUser)return;
 
- let code=$("saleCode").value.trim().toUpperCase();
- let amount=Number($("saleAmount").value);
+ const code=$("saleCode").value.trim().toUpperCase();
+ const amount=Number($("saleAmount").value);
 
- if(!students[code]){
-  alert("Öğrenci kodu bulunamadı.");
+ if(!code || !Number.isFinite(amount) || amount<=0){
+  message("saleMessage","Öğrenci kodu ve geçerli tutar gir.","error");
   return;
  }
 
- if(!Number.isFinite(amount)||amount<=0){
-  alert("Geçerli alışveriş tutarı gir.");
-  return;
- }
-
- let reward=Math.round(amount*5)/100;
-
- let date=new Date().toLocaleString("tr-TR");
-
- students[code].balance=
- Math.round((students[code].balance+reward)*100)/100;
-
- sales.push({
-  code:code,
-  amount:amount,
-  reward:reward,
-  date:date
+ const {data,error}=await db.rpc("register_sale",{
+  p_code:code,
+  p_amount:amount
  });
 
- save();
-
- alert(
-  "Satış kaydedildi!\n"+
-  "Öğrenciye eklenen bakiye: "+money(reward)
- );
+ if(error){
+  message("saleMessage","Satış kaydedilemedi: "+error.message,"error");
+  return;
+ }
 
  $("saleCode").value="";
  $("saleAmount").value="";
+
+ message("saleMessage",
+  "Satış kaydedildi. Öğrenciye "+money(data.reward)+" kazanç eklendi."
+ );
+
+ await refresh();
 }
 
-// BAKİYEDEN HARCAMA
+// HARCAMA
 
-function spendBalance(){
+async function spendBalance(){
+ if(!currentUser)return;
 
- let code=$("spendCode").value.trim().toUpperCase();
- let amount=Number($("spendAmount").value);
+ const code=$("spendCode").value.trim().toUpperCase();
+ const amount=Number($("spendAmount").value);
 
- if(!students[code]){
-  alert("Öğrenci bulunamadı.");
+ if(!code || !Number.isFinite(amount) || amount<=0){
+  message("spendMessage","Öğrenci kodu ve geçerli tutar gir.","error");
   return;
  }
 
- if(!Number.isFinite(amount)||amount<=0){
-  alert("Geçerli harcama tutarı gir.");
+ if(!confirm(money(amount)+" tutarındaki harcamayı onaylıyor musun?")){
   return;
  }
 
- if(amount>students[code].balance){
-  alert("Öğrencinin bakiyesi yetersiz.");
-  return;
- }
-
- if(!confirm(
-  students[code].name+" isimli öğrencinin bakiyesinden "+
-  money(amount)+" düşülecek. Onaylıyor musun?"
- )){
-  return;
- }
-
- students[code].balance=
- Math.round((students[code].balance-amount)*100)/100;
-
- expenses.push({
-  code:code,
-  amount:amount,
-  date:new Date().toLocaleString("tr-TR")
+ const {data,error}=await db.rpc("spend_balance",{
+  p_code:code,
+  p_amount:amount
  });
 
- save();
-
- alert("Harcama kaydedildi ve bakiye düşüldü.");
+ if(error){
+  message("spendMessage","Harcama kaydedilemedi: "+error.message,"error");
+  return;
+ }
 
  $("spendCode").value="";
  $("spendAmount").value="";
+
+ message("spendMessage",
+  "Harcama kaydedildi. Kalan bakiye: "+money(data.remaining_balance)
+ );
+
+ await refresh();
 }
 
-// PANELİ GÜNCELLE
+// PANEL VERILERI
 
-function dashboard(){
+async function refresh(){
+ if(!currentUser)return;
 
- let list=Object.entries(students);
+ const [studentsResult,salesResult,transactionsResult]=
+ await Promise.all([
+  db.from("student_balances").select("*").order("name"),
+  db.from("sales").select("id,student_id,amount,reward,created_at").order("created_at",{ascending:false}),
+  db.from("transactions").select("id,student_id,type,amount,description,created_at").eq("type","debit").order("created_at",{ascending:false})
+ ]);
 
- let totalBalance=list.reduce(
-  (a,[code,s])=>a+s.balance,0
- );
+ if(studentsResult.error || salesResult.error || transactionsResult.error){
+  alert("Veriler yüklenemedi. Supabase tablo izinlerini kontrol et.");
+  console.error(studentsResult.error,salesResult.error,transactionsResult.error);
+  return;
+ }
 
- let totalSales=sales.reduce(
-  (a,s)=>a+s.amount,0
- );
+ const students=studentsResult.data||[];
+ const sales=salesResult.data||[];
+ const expenses=transactionsResult.data||[];
 
- let totalRewards=sales.reduce(
-  (a,s)=>a+s.reward,0
- );
-
- let totalSpent=expenses.reduce(
-  (a,s)=>a+s.amount,0
- );
+ const totalBalance=students.reduce((a,s)=>a+Number(s.balance||0),0);
+ const totalSales=sales.reduce((a,s)=>a+Number(s.amount),0);
+ const totalRewards=sales.reduce((a,s)=>a+Number(s.reward),0);
+ const totalSpent=expenses.reduce((a,s)=>a+Number(s.amount),0);
 
  $("totalBalance").textContent=money(totalBalance);
- $("studentCount").textContent=list.length;
+ $("studentCount").textContent=students.length;
  $("totalSales").textContent=money(totalSales);
  $("totalRewards").textContent=money(totalRewards);
  $("totalSpent").textContent=money(totalSpent);
 
- // ÖĞRENCİ TABLOSU
+ $("studentList").innerHTML=students.map(s=>
+  `<tr>
+   <td>${safe(s.name)}</td>
+   <td><b>${safe(s.code)}</b></td>
+   <td>${safe(s.phone||"-")}</td>
+   <td><b>${money(s.balance)}</b></td>
+  </tr>`
+ ).join("") || "<tr><td colspan='4'>Henüz öğrenci yok.</td></tr>";
 
- $("studentList").innerHTML=list.map(([code,s])=>
-  "<tr>"+
-  "<td>"+safe(s.name)+"</td>"+
-  "<td><b>"+safe(code)+"</b></td>"+
-  "<td>"+safe(s.phone||"-")+"</td>"+
-  "<td><b>"+money(s.balance)+"</b></td>"+
-  "</tr>"
- ).join("") || "<tr><td colspan='4'>Henüz öğrenci eklenmedi.</td></tr>";
+ const studentMap=Object.fromEntries(
+  students.map(s=>[s.id,s.code])
+ );
 
- // SATIŞ TABLOSU
-
- $("salesList").innerHTML=sales.slice().reverse().map(s=>
-  "<tr>"+
-  "<td>"+safe(s.date)+"</td>"+
-  "<td>"+safe(s.code)+"</td>"+
-  "<td>"+money(s.amount)+"</td>"+
-  "<td style='color:#086238;font-weight:bold'>"+money(s.reward)+"</td>"+
-  "</tr>"
+ $("salesList").innerHTML=sales.map(s=>
+  `<tr>
+   <td>${safe(new Date(s.created_at).toLocaleString("tr-TR"))}</td>
+   <td>${safe(studentMap[s.student_id]||"-")}</td>
+   <td>${money(s.amount)}</td>
+   <td style="color:#08703c">${money(s.reward)}</td>
+  </tr>`
  ).join("") || "<tr><td colspan='4'>Henüz satış yok.</td></tr>";
 
- // HARCAMA TABLOSU
-
- $("spendList").innerHTML=expenses.slice().reverse().map(s=>
-  "<div class='history-item'>"+
-  "<span><b>"+safe(s.code)+"</b><br><small>"+safe(s.date)+"</small></span>"+
-  "<b style='color:#963c30'>-"+money(s.amount)+"</b>"+
-  "</div>"
- ).join("") || "<p class='empty'>Henüz harcama yapılmadı.</p>";
+ $("expenseList").innerHTML=expenses.map(e=>
+  `<div class="history-item">
+   <span>
+    <b>${safe(studentMap[e.student_id]||"-")}</b><br>
+    <small>${safe(new Date(e.created_at).toLocaleString("tr-TR"))}</small>
+   </span>
+   <b style="color:#b12d2d">-${money(e.amount)}</b>
+  </div>`
+ ).join("") || "<p>Henüz harcama yok.</p>";
 }
 
-dashboard();
+// OTURUM KONTROLU
+
+db.auth.onAuthStateChange((event,session)=>{
+ if(event==="SIGNED_OUT"){
+  currentUser=null;
+  showDashboard(false);
+ }
+});
+
+(async()=>{
+ const {data:{session}}=await db.auth.getSession();
+ if(session) await verifyAdmin();
+})();
 
 </script>
-
 </body>
 </html>
