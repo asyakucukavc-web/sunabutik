@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUNA BUTİK | Campus Club</title>
+<style>
+:root {
+  --cream:#F7F6E9;
+  --green:#004923;
+  --gold:#DDBB65;
+  --white:#FFFFFF;
+  --text:#24372B;
+  --muted:#788477;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--cream);
+ font-family:Arial,sans-serif;color:var(--text);
+}
+header{
+ background:var(--cream);text-align:center;
+ padding:22px 15px 12px;
+ border-bottom:1px solid #e7e4d3;
+}
+.logo{
+ width:min(100%,650px);
+ max-height:175px;object-fit:contain;
+}
+.brand{
+ color:var(--green);font-size:12px;
+ letter-spacing:5px;margin-top:5px;
+}
+.tagline{color:#8c7847;font-size:12px;letter-spacing:2px}
+nav{
+ display:flex;justify-content:center;gap:9px;
+ padding:18px 10px;flex-wrap:wrap;
+}
+button{
+ border:0;border-radius:9px;padding:13px 18px;
+ font-weight:bold;cursor:pointer;
+}
+nav button{background:#e8e7d8;color:var(--green)}
+nav button.active,.main-btn{
+ background:var(--green);color:white;
+}
+main{max-width:850px;margin:auto;padding:12px}
+.panel{
+ background:white;padding:23px;border-radius:15px;
+ margin-bottom:17px;border:1px solid #eeecdf;
+ box-shadow:0 5px 20px #00492308;
+}
+h2{color:var(--green);font-size:19px;margin-top:0}
+label{display:block;font-size:13px;font-weight:bold;margin-top:12px}
+input{
+ width:100%;padding:14px;margin:7px 0;
+ border:1px solid #deded0;border-radius:8px;
+ font-size:15px;background:#fffefa;
+}
+.main-btn{width:100%;margin-top:12px}
+.main-btn:hover{background:#086238}
+.hero{
+ background:var(--green);color:white;
+ border-radius:16px;padding:27px;text-align:center;
+}
+.hero small{color:#e7d69f;letter-spacing:2px}
+.hero strong{display:block;font-size:37px;margin:13px}
+.code{
+ background:var(--cream);padding:18px;
+ border-radius:10px;text-align:center;
+ color:var(--green);font-size:25px;
+ font-weight:bold;letter-spacing:3px;
+}
+.stat{
+ display:grid;grid-template-columns:1fr 1fr;gap:12px;
+}
+.stat div{background:var(--cream);padding:16px;border-radius:10px}
+.stat strong{display:block;font-size:22px;color:var(--green);margin-top:8px}
+.hidden{display:none}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{text-align:left;padding:12px;border-bottom:1px solid #eee}
+.table-wrap{overflow-x:auto}
+.badge{
+ display:inline-block;background:#f2e8ca;
+ color:#74591d;padding:5px 10px;
+ border-radius:20px;font-size:11px;
+}
+.history-item{
+ padding:12px 0;border-bottom:1px solid #eee;
+ display:flex;justify-content:space-between;gap:10px;
+}
+footer{
+ text-align:center;padding:28px;color:var(--green);
+ font-size:12px;letter-spacing:2px;
+}
+@media(max-width:500px){
+ .panel{padding:17px}
+ .hero strong{font-size:31px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <img class="logo" src="suna-logo.png" alt="SUNA BUTİK Logo"
+ onerror="this.style.display='none'">
+ <div class="brand">S U N A &nbsp; B U T İ K</div>
+ <p class="tagline">GİYİN • PAYLAŞ • KAZAN</p>
+</header>
+
+<nav>
+ <button class="active" onclick="showPage('student',this)">🎓 Öğrenci Paneli</button>
+ <button onclick="showPage('admin',this)">🔐 Yönetici Paneli</button>
+</nav>
+
+<main>
+
+<!-- ÖĞRENCİ PANELİ -->
+<section id="student">
+ <div class="panel">
+  <h2>Hoş Geldin 🌿</h2>
+  <p>SUNA CAMPUS CLUB üyeliğine özel kazanç dünyasına giriş yap.</p>
+  <label>Öğrenci Kodun</label>
+  <input id="studentCode" placeholder="Örn: AYSE10">
+  <button class="main-btn" onclick="login()">Hesabıma Giriş Yap</button>
+ </div>
+
+ <div id="account" class="hidden">
+  <div class="hero">
+   <small>SUNA CAMPUS CLUB</small>
+   <p>Harcanabilir Bakiyen</p>
+   <strong id="balance">₺0,00</strong>
+   <span class="badge">Öğrenci Kulübü Üyesi</span>
+  </div>
+
+  <div class="panel">
+   <h2>🌼 Sana Özel Alışveriş Kodun</h2>
+   <div class="code" id="myCode"></div>
+   <p>Bu kodu arkadaşlarınla paylaş. Kodunla yapılan uygun alışverişlerin %10'u senin bakiyene eklensin.</p>
+   <button class="main-btn" onclick="share()">Kodumu Paylaş</button>
+  </div>
+
+  <div class="panel">
+   <h2>💚 Bakiyeni Kullan</h2>
+   <p>Biriktirdiğin bakiyeyi SUNA BUTİK alışverişlerinde kullanabilirsin.</p>
+   <label>Harcamak istediğin tutar</label>
+   <input type="number" id="spendAmount" min="0.01" placeholder="TL">
+   <button class="main-btn" onclick="spend()">Harcama Talebi Oluştur</button>
+  </div>
+
+  <div class="panel">
+   <h2>📋 İşlem Geçmişim</h2>
+   <div id="history"></div>
+  </div>
+ </div>
+</section>
+
+<!-- YÖNETİCİ PANELİ -->
+<section id="admin" class="hidden">
+
+ <div class="panel">
+  <h2>Yönetici Özeti</h2>
+  <div class="stat">
+   <div>Öğrenci Sayısı<strong id="count">0</strong></div>
+   <div>Toplam Satış<strong id="totalSales">₺0</strong></div>
+   <div>Dağıtılan Kazanç<strong id="rewards">₺0</strong></div>
+   <div>Toplam Bakiye<strong id="balances">₺0</strong></div>
+  </div>
+ </div>
+
+ <div class="panel">
+  <h2>➕ Yeni Öğrenci Ekle</h2>
+  <label>Ad Soyad</label>
+  <input id="newName" placeholder="Öğrenci adı">
+  <label>Telefon (isteğe bağlı)</label>
+  <input id="newPhone" placeholder="Telefon">
+  <button class="main-btn" onclick="addStudent()">Öğrenci Oluştur</button>
+  <div id="created"></div>
+ </div>
+
+ <div class="panel">
+  <h2>🛍️ Satış Kaydet</h2>
+  <label>Öğrenci Referans Kodu</label>
+  <input id="saleCode" placeholder="AYSE10">
+  <label>Alışveriş Tutarı (TL)</label>
+  <input type="number" id="saleAmount" min="0.01" placeholder="500">
+  <button class="main-btn" onclick="addSale()">Satışı Onayla ve %10 Kazandır</button>
+ </div>
+
+ <div class="panel">
+  <h2>💰 Manuel Bakiye Ekle</h2>
+  <label>Öğrenci Kodu</label>
+  <input id="manualCode" placeholder="Öğrenci kodu">
+  <label>Tutar</label>
+  <input type="number" id="manualAmount" min="0.01" placeholder="50">
+  <button class="main-btn" onclick="manualAdd()">Bakiye Ekle</button>
+ </div>
+
+ <div class="panel">
+  <h2>👥 Öğrenci Listesi</h2>
+  <div class="table-wrap">
+   <table>
+    <thead><tr><th>İsim</th><th>Kod</th><th>Bakiye</th></tr></thead>
+    <tbody id="studentList"></tbody>
+   </table>
+  </div>
+ </div>
+
+ <div class="panel">
+  <h2>🧾 Satış Geçmişi</h2>
+  <div class="table-wrap">
+   <table>
+    <thead><tr><th>Tarih</th><th>Kod</th><th>Satış</th><th>Kazanç</th></tr></thead>
+    <tbody id="salesList"></tbody>
+   </table>
+  </div>
+ </div>
+
+ <div class="panel">
+  <h2>💳 Harcama Talepleri</h2>
+  <div id="requests"></div>
+ </div>
+
+</section>
+</main>
+
+<footer>
+ SUNA BUTİK<br><br>
+ GİYİN • PAYLAŞ • KAZAN<br><br>
+ HATAY | MKÜ CAMPUS CLUB
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+let students=JSON.parse(localStorage.getItem("suna_students")||"{}");
+let sales=JSON.parse(localStorage.getItem("suna_sales")||"[]");
+let requests=JSON.parse(localStorage.getItem("suna_requests")||"[]");
+let currentCode="";
+
+function save(){
+ localStorage.setItem("suna_students",JSON.stringify(students));
+ localStorage.setItem("suna_sales",JSON.stringify(sales));
+ localStorage.setItem("suna_requests",JSON.stringify(requests));
+ dashboard();
+}
+function money(n){
+ return Number(n).toLocaleString("tr-TR",{style:"currency",currency:"TRY"});
+}
+function safe(s){
+ return String(s).replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[c]);
+}
+function showPage(id,btn){
+ $("student").classList.toggle("hidden",id!=="student");
+ $("admin").classList.toggle("hidden",id!=="admin");
+ document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");
+ dashboard();
+}
+function makeCode(name){
+ let base=name.normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+ .replace(/[^a-zA-Z]/g,"").toUpperCase().slice(0,8)||"SUNACLUB";
+ let code=base+"10",i=1;
+ while(students[code])code=base+(++i)+"10";
+ return code;
+}
+function addStudent(){
+ let name=$("newName").value.trim();
+ if(!name)return alert("Öğrenci adı gerekli.");
+ let code=makeCode(name);
+ students[code]={name,phone:$("newPhone").value.trim(),balance:0,history:[]};
+ save();
+ $("created").innerHTML="<p>🌿 Üyelik oluşturuldu: <b>"+safe(code)+"</b></p>";
+ $("newName").value="";
+ $("newPhone").value="";
+}
+function login(){
+ let code=$("studentCode").value.trim().toUpperCase();
+ if(!students[code])return alert("Öğrenci kodu bulunamadı.");
+ currentCode=code;
+ $("account").classList.remove("hidden");
+ renderStudent();
+}
+function renderStudent(){
+ let s=students[currentCode];
+ if(!s)return;
+ $("balance").textContent=money(s.balance);
+ $("myCode").textContent=currentCode;
+ $("history").innerHTML=s.history.length?
+ s.history.slice().reverse().map(h=>
+ "<div class='history-item'><span>"+safe(h.desc)+"</span><b>"+money(h.amount)+"</b></div>"
+ ).join(""):"Henüz işlem bulunmuyor.";
+}
+function share(){
+ let msg="SUNA BUTİK Campus Club kodum: "+currentCode+
+ ". Kodumla alışveriş yaparak bana %10 bakiye kazandırabilirsin! 🌿";
+ if(navigator.share)navigator.share({text:msg});
+ else if(navigator.clipboard)navigator.clipboard.writeText(msg)
+ .then(()=>alert("Kodun kopyalandı."));
+ else alert(msg);
+}
+function addSale(){
+ let code=$("saleCode").value.trim().toUpperCase();
+ let amount=Number($("saleAmount").value);
+ if(!students[code])return alert("Öğrenci bulunamadı.");
+ if(!Number.isFinite(amount)||amount<=0)return alert("Geçerli tutar gir.");
+ let reward=Math.round(amount*10)/100;
+ let date=new Date().toLocaleString("tr-TR");
+ students[code].balance=Math.round((students[code].balance+reward)*100)/100;
+ students[code].history.push({desc:"Alışveriş kazancı",amount:reward});
+ sales.push({code,amount,reward,date});
+ save();
+ alert("Satış kaydedildi. "+money(reward)+" bakiye eklendi.");
+ $("saleAmount").value="";
+ if(currentCode===code)renderStudent();
+}
+function spend(){
+ let amount=Number($("spendAmount").value);
+ let s=students[currentCode];
+ if(!s)return;
+ if(!Number.isFinite(amount)||amount<=0)return alert("Geçerli tutar gir.");
+ if(amount>s.balance)return alert("Yetersiz bakiye.");
+ requests.push({id:Date.now(),code:currentCode,amount,status:"Bekliyor"});
+ save();
+ $("spendAmount").value="";
+ alert("Harcama talebin mağaza onayına gönderildi.");
+}
+function approve(id){
+ let r=requests.find(x=>x.id===id);
+ if(!r||r.status!=="Bekliyor")return;
+ if(!students[r.code]||students[r.code].balance<r.amount)
+ return alert("Bakiye yetersiz.");
+ students[r.code].balance=Math.round((students[r.code].balance-r.amount)*100)/100;
+ students[r.code].history.push({desc:"Onaylı bakiye harcaması",amount:-r.amount});
+ r.status="Onaylandı";
+ save();
+ if(currentCode===r.code)renderStudent();
+}
+function reject(id){
+ let r=requests.find(x=>x.id===id);
+ if(!r||r.status!=="Bekliyor")return;
+ r.status="Reddedildi";
+ save();
+}
+function manualAdd(){
+ let code=$("manualCode").value.trim().toUpperCase();
+ let amount=Number($("manualAmount").value);
+ if(!students[code])return alert("Öğrenci bulunamadı.");
+ if(!Number.isFinite(amount)||amount<=0)return alert("Geçerli tutar gir.");
+ students[code].balance=Math.round((students[code].balance+amount)*100)/100;
+ students[code].history.push({desc:"Yönetici bakiye eklemesi",amount});
+ save();
+ alert("Bakiye eklendi.");
+}
+function dashboard(){
+ let list=Object.entries(students);
+ $("count").textContent=list.length;
+ $("totalSales").textContent=money(sales.reduce((a,s)=>a+s.amount,0));
+ $("rewards").textContent=money(sales.reduce((a,s)=>a+s.reward,0));
+ $("balances").textContent=money(list.reduce((a,[k,s])=>a+s.balance,0));
+ $("studentList").innerHTML=list.map(([c,s])=>
+ "<tr><td>"+safe(s.name)+"</td><td>"+safe(c)+"</td><td>"+money(s.balance)+"</td></tr>"
+ ).join("");
+ $("salesList").innerHTML=sales.slice().reverse().map(s=>
+ "<tr><td>"+safe(s.date)+"</td><td>"+safe(s.code)+"</td><td>"+money(s.amount)+"</td><td>"+money(s.reward)+"</td></tr>"
+ ).join("");
+ $("requests").innerHTML=requests.slice().reverse().map(r=>
+ "<div class='history-item'><span>"+safe(r.code)+" – "+money(r.amount)+"<br><small>"+safe(r.status)+"</small></span>"+
+ (r.status==="Bekliyor"?
+ "<span><button onclick='approve("+r.id+")'>Onayla</button> <button onclick='reject("+r.id+")'>Reddet</button></span>":"")
+ +"</div>"
+ ).join("")||"Henüz talep yok.";
+}
+dashboard();
+</script>
+</body>
+</html>
